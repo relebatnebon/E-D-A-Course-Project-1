@@ -1,5 +1,6 @@
 ## Input: Dataset position
-## Output: Histogram showing the frequency of the global active power reaching different levels
+## Output: Histogram showing the frequency of the global active power reaching different levels at different time in working directory
+## Assumption: Data source file placed in the working directory
 
 ## ask for location of the source file
 ## Input example: ./Data/household_power_consumption.txt
