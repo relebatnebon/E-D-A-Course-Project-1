@@ -1,5 +1,6 @@
 ## Input: Dataset position
-## Output: Chart showing the global active power levels
+## Output: Chart showing the global active power levels at different time in working directory
+## Assumption: Data source file placed in the working directory
 
 ## ask for location of the source file
 ## Input example: ./Data/household_power_consumption.txt
