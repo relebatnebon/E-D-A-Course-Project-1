@@ -1,5 +1,6 @@
 ## Input: Dataset position
-## Output: Chart showing the level of 3 energy sub meterings
+## Output: Chart showing the level of 3 energy sub meterings at different time in working directory
+## Assumption: Data source file placed in the working directory
 
 ## ask for location of the source file
 ## Input example: ./Data/household_power_consumption.txt
