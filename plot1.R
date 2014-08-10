@@ -44,7 +44,7 @@ ds$Time <-ISOdatetime(
 	,format(ds$Time, "%S")
 	,tz = "")
 
-## Q1 plot the histogram
+## create plot 1
 hist(ds$Global_active_power, 
 	breaks=seq(0, ceiling(2*max(ds$Global_active_power))/2, by=0.5)
 	,col="red",
