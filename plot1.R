@@ -1,11 +1,5 @@
-## This program absorbs the dataset and produce a histogram.
-## The code does the following:
-## 	asks for the location of the dataset, 
-## 	reads the dataset,
-## 	subsets the data,
-## 	modify the time column, 
-## 	plots the histogram, 
-## 	and save the output to a PNG graphic file in the working directory.
+## Input: Dataset position
+## Output: Histogram showing the frequency of the global active power reaching different levels
 
 ## ask for location of the source file
 print("Please enter the position of the data file under the working directory.")
@@ -17,38 +11,28 @@ dirSource <- readLines(n=1)
 
 ## set data types
 library(methods)
-setClass("myDate")
-setClass("myTime")
-setAs("character", "myDate", function(from) as.Date(from, format="%d/%m/%Y") )
-setAs("character", "myTime", function(from) as.POSIXct(from, format="%H:%M:%S"))
+setClass("thisDate")
+setClass("thisTime")
+setAs("character", "thisDate", function(from) as.Date(from, format="%d/%m/%Y") )
+setAs("character", "thisTime", function(from) as.POSIXct(from, format="%H:%M:%S"))
 
 ## read data with data type specifications
-rawDataset <- read.table(dirSource,
-	header=TRUE,
-	na.strings="?",
-	colClasses=c("myDate","myTime",rep("numeric",7)),
-	sep=";")
+rawDataset <- read.table(dirSource,header=TRUE,na.strings="?",
+		colClasses=c("thisDate","thisTime",rep("numeric",7)),sep=";")
 
 ## subset the data
-ds <- rawDataset[
-	rawDataset$Date >= as.Date("2007-02-01") &
-	rawDataset$Date <= as.Date("2007-02-02"),]
+ds <- rawDataset[rawDataset$Date >= as.Date("2007-02-01") &
+			rawDataset$Date <= as.Date("2007-02-02"),]
 
 ## modify time column
-ds$Time <-ISOdatetime(
-	format(ds$Date, "%Y")
-	,format(ds$Date, "%m")
-	,format(ds$Date, "%d") 
-	,format(ds$Time, "%H") 
-	,format(ds$Time, "%M") 
-	,format(ds$Time, "%S")
+ds$Time <-ISOdatetime(format(ds$Date, "%Y"),format(ds$Date, "%m"),format(ds$Date, "%d") 
+	,format(ds$Time, "%H"),format(ds$Time, "%M"),format(ds$Time, "%S")
 	,tz = "")
 
 ## create plot 1
 hist(ds$Global_active_power, 
 	breaks=seq(0, ceiling(2*max(ds$Global_active_power))/2, by=0.5)
-	,col="red",
-	,main="Global Actice Power",xlab="Global Active Power (kilowatts)")
+	,col="red", ,main="Global Actice Power",xlab="Global Active Power (kilowatts)")
 
 ## Save the output to PNG
 dev.copy(png, file="plot1.png", height=480, width=480)
