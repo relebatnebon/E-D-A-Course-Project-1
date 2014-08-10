@@ -2,21 +2,18 @@
 ## Output: Histogram showing the frequency of the global active power reaching different levels
 
 ## ask for location of the source file
-print("Please enter the position of the data file under the working directory.")
-print("If your dataset is placed in the folder named Data under the working directory")
-print(" and named as household_power_consumption.txt,")
-print(" the input should be ./Data/household_power_consumption.txt.")
-cat("Position of the dataset:")
+## Input example: ./Data/household_power_consumption.txt
+cat("Source file location:")
 dirSource <- readLines(n=1)
 
 ## set data types
 library(methods)
 setClass("thisDate")
-setClass("thisTime")
 setAs("character", "thisDate", function(from) as.Date(from, format="%d/%m/%Y") )
+setClass("thisTime")
 setAs("character", "thisTime", function(from) as.POSIXct(from, format="%H:%M:%S"))
 
-## read data with data type specifications
+## read data
 rawDataset <- read.table(dirSource,header=TRUE,na.strings="?",
 		colClasses=c("thisDate","thisTime",rep("numeric",7)),sep=";")
 
@@ -24,7 +21,7 @@ rawDataset <- read.table(dirSource,header=TRUE,na.strings="?",
 ds <- rawDataset[rawDataset$Date >= as.Date("2007-02-01") &
 			rawDataset$Date <= as.Date("2007-02-02"),]
 
-## modify time column
+## update Time column
 ds$Time <-ISOdatetime(format(ds$Date, "%Y"),format(ds$Date, "%m"),format(ds$Date, "%d") 
 	,format(ds$Time, "%H"),format(ds$Time, "%M"),format(ds$Time, "%S")
 	,tz = "")
